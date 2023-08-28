@@ -1,0 +1,19 @@
+name: Detect changes in 'tests' directory
+
+on: 
+  push:
+    paths:
+      - 'tests/**'
+
+jobs:
+  detect_changes:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Fail on changes
+        if: ${{ github.actor != 'github-classroom[bot]' }}
+        run: |
+          echo "ERROR: Please do not make changes in the 'tests' directory"
+          exit 1

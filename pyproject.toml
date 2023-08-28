@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "mp-assignment-01"
+version = "0.1.0"
+description = "Second assignment for YSC2229"
+authors = ["Alan Matthew <yokurang@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pytest = "^7.4.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
