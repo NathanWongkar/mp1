@@ -41,4 +41,23 @@ from typing import List
 
 def search_triplets(arr: List[int]) -> List[List[int]]:
     # TODO: Implement the function
-    return [[0]]
+    arr.sort()
+    triplets_list = []
+    leng = len(arr)
+    current_list = []
+    target = 0 
+
+    for m in range(leng-2):
+      current_list = []
+      if m > 0 and arr[m] == arr[m-1]:
+        continue
+      for n in range(m+1, leng-1):
+         temp_sum = arr[n] + arr[m]
+         for o in range (n+1, leng):
+            if temp_sum + arr[o] == 0:
+              current_list = [arr[m],arr[n],arr[o]]
+              if current_list not in triplets_list:
+                triplets_list.append(current_list)
+    
+      
+    return triplets_list

@@ -60,10 +60,19 @@ class TreeNode:
         self.right = right
 
 
-def has_path_sum(root: TreeNode, sum: int) -> bool:
-    if not root:
-        return  # TODO
-
+def has_path_sum(root: TreeNode, target: int) -> bool:
     # TODO Implement me
-
+    if not root:
+        return False
+    if not root.left and not root.right:
+        target = target-root.value
+        if target == 0:
+            return True 
+    if root.left and has_path_sum(root.left, target - root.value):
+        return True
+    if root.right and has_path_sum(root.right, target - root.value):
+        return True    
     return False
+
+
+

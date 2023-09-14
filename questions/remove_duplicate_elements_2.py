@@ -37,8 +37,31 @@ Hints:
 Tags:
     - String
 """
-
-
 def remove_groups(s: str, k: int) -> str:
-    # TODO: Implement the function
-    return ""
+    while True:
+        start = 0
+        end = 0
+        found = False
+        new_s = []
+        
+        while end < len(s):
+            # Move 'end' pointer to find the end of a group
+            while end < len(s) and s[start] == s[end]:
+                end += 1
+
+            # If group size is equal to k, skip appending it to the new string
+            if end - start == k:
+                found = True
+            else:
+                new_s.append(s[start:end])
+
+            start = end
+
+        s = ''.join(new_s)
+
+        # If no group of size k is found, break
+        if not found:
+            break
+
+    return s
+

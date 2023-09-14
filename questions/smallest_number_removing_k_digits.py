@@ -37,7 +37,19 @@ Tags:
     - Stack
 """
 
-
+from collections import deque 
 def remove_k_digits(num: str, k: int) -> str:
     # TODO: Implement the removeKDigits function
-    return ""
+
+    stack = deque([])
+    for c in num:
+        while k > 0 and stack and stack[-1] > c:           
+            stack.pop()
+            k = k - 1
+        stack.append(c)
+    while k > 0:
+        stack.pop()
+        k -= 1
+    res = ''.join(stack).lstrip('0')
+
+    return res if res != '' else '0'

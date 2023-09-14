@@ -50,7 +50,43 @@ class ListNode:
         self.value = value
         self.next = next
 
-
 def reverse_every_k_elements(head: ListNode, k: int) -> ListNode:
-    # TODO: Implement the function
-    return None
+    if not head or k <= 1:
+        return head
+
+    # Helper function to reverse a sublist and return both new head and new tail
+    def reverse_sublist(start, end):
+        prev, curr = None, start
+        while curr != end:
+            nxt = curr.next
+            curr.next = prev
+            prev, curr = curr, nxt
+        return prev, start  # New head and new tail after reversing
+
+    # Initialize some pointers
+    new_head, prev_tail = None, None
+    while head:  # Continue until we process all nodes
+        # Identify the start and end of the current chunk
+        start, end = head, None
+        for i in range(k):
+            if i == k - 1:
+                end = head.next if head else None
+            if not head:  # Add this check
+                break
+            head = head.next
+
+        # Reverse the current chunk
+        reversed_head, reversed_tail = reverse_sublist(start, end)
+
+        # If it's the first chunk, update the new head of the linked list
+        if not new_head:
+            new_head = reversed_head
+
+        # Connect the previous chunk to the current chunk (if it exists)
+        if prev_tail:
+            prev_tail.next = reversed_head
+
+        # Update the previous tail for the next iteration
+        prev_tail = reversed_tail
+
+    return new_head

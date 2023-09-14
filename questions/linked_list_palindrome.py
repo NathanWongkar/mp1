@@ -40,6 +40,7 @@ Tags:
     - Two Pointers
 """
 
+from collections import deque
 
 class ListNode:
     def __init__(self, value=0, next=None):
@@ -49,4 +50,22 @@ class ListNode:
 
 def is_palindrome(head: ListNode) -> bool:
     # TODO: Implement the function
-    return False
+    stack = deque([])
+
+    if not head or not head.next:
+        return True
+
+    slow = head
+    fast = head 
+
+    while fast and fast.next:
+        stack.append(slow.value) 
+        slow = slow.next
+        fast = fast.next.next
+    if fast: # if odd then u skip
+        slow = slow.next
+    while slow:
+        if slow.value != stack.pop():
+            return False
+        slow = slow.next           
+    return True

@@ -37,7 +37,24 @@ Tags:
 
 from typing import List
 
-
 def search_quadruplets(arr: List[int], target: int) -> List[List[int]]:
-    # TODO: Implement the function
-    return [[0]]
+    arr.sort()
+    quad_list = []
+    leng = len(arr)
+    
+    for i in range(leng-3):
+        # Skip duplicates
+        if i > 0 and arr[i] == arr[i-1]:
+            continue
+        for m in range(i+1, leng-2):
+            # Skip duplicates
+            if m > i + 1 and arr[m] == arr[m-1]:
+                continue
+            for n in range(m+1, leng-1):
+                for o in range(n+1, leng):
+                    if arr[i] + arr[m] + arr[n] + arr[o] == target:
+                        quad = [arr[i], arr[m], arr[n], arr[o]]
+                        if quad not in quad_list:
+                            quad_list.append(quad)
+
+    return quad_list

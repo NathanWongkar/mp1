@@ -30,7 +30,17 @@ Tags:
 
 from typing import List
 
-
+from collections import deque
 def maxWidthRamp(nums: List[int]) -> int:
     # TODO: Implement the function
-    return 0
+    maxWidth = 0
+    stack = deque([])
+    for i,num in enumerate(nums):
+        if not stack or num < nums[stack[-1]]:
+            stack.append(i)
+    for j in range(len(nums) - 1, -1, -1):
+        while stack and nums[stack[-1]] <= nums[j]:
+            maxWidth = max(maxWidth, j - stack[-1])
+            stack.pop()
+
+    return maxWidth

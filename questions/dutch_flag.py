@@ -44,4 +44,5 @@ from typing import List
 
 def sort_array(arr: List[int]) -> None:
     # TODO: Implement the function
-    return None
+
+    return arr.sort()

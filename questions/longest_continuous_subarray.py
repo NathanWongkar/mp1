@@ -40,8 +40,32 @@ Tags:
 """
 
 from typing import List
-
+from collections import deque
 
 def longest_subarray(nums: List[int], limit: int) -> int:
-    # TODO: Implement the function
-    return 0
+    max_deque, min_deque = deque(), deque()
+    left, res = 0, 0
+    
+    for right, num in enumerate(nums):
+        # Maintain the max deque
+        while max_deque and max_deque[-1] < num:
+            max_deque.pop()
+        max_deque.append(num)
+
+        # Maintain the min deque
+        while min_deque and min_deque[-1] > num:
+            min_deque.pop()
+        min_deque.append(num)
+
+        # If the current window is invalid, slide the window
+        while max_deque[0] - min_deque[0] > limit:
+            if nums[left] == min_deque[0]:
+                min_deque.popleft()
+            if nums[left] == max_deque[0]:
+                max_deque.popleft()
+            left += 1
+
+        # Update the result
+        res = max(res, right - left + 1)
+
+    return res

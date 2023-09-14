@@ -38,7 +38,19 @@ Tags:
     - String
 """
 
+from collections import deque
 
 def remove_adjacent_dups(s: str) -> str:
     # TODO: Implement the function
-    return ""
+    str_length = len(s)
+    queue = deque([]) 
+    if str_length == 0:
+        return ""
+    for char in s:
+        if queue and (char == queue[-1]):
+            queue.pop()
+        else:
+            queue.append(char)
+    
+
+    return "".join(queue)

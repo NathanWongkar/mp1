@@ -43,4 +43,16 @@ from typing import List
 
 def days_to_wait_for_warmer(temperatures: List[int]) -> List[int]:
     # TODO: Implement the function
-    return [0]
+    if not temperatures:
+        return []
+    
+    days = [0] * len(temperatures)
+    stack = []
+
+    for idx, temp in enumerate(temperatures):
+        while stack and temperatures[stack[-1]] < temp:
+            last_idx = stack.pop()
+            days[last_idx] = idx - last_idx
+        stack.append(idx)
+
+    return days

@@ -1,4 +1,4 @@
-"""
+r"""
 Problem: Zigzag Level Order Traversal of Binary Tree
 
 Description:
@@ -48,6 +48,7 @@ Tags:
 """
 
 from typing import List
+from collections import deque
 
 class TreeNode:
     def __init__(self, value=0, left=None, right=None):
@@ -61,5 +62,22 @@ def zigzag_level_order_traversal(root: TreeNode) -> List[List[int]]:
     
     # TODO: Implement the BFS algorithm with zigzag order to populate the result list
     result = []
-    # ...
+    queue = deque([root])
+    flag = True
+    while queue: #while queue is not emptu
+        level_size = len(queue)
+        current_lvl = []
+
+        for i in range(level_size):
+            node = queue.popleft()
+            current_lvl.append(node.value)
+            if node.left:
+                queue.append(node.left)
+            if node.right:
+                queue.append(node.right)
+        if flag:
+            result.append(current_lvl)
+        else:
+            result.append(current_lvl[::-1])
+        flag = not flag
     return result

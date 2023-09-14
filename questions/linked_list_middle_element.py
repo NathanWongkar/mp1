@@ -49,4 +49,14 @@ class ListNode:
 
 def find_middle(head: ListNode) -> ListNode:
     # TODO: Implement the function
-    return None
+    if not head or not head.next:
+        return head
+    
+    slow = head
+    fast = head
+
+    while (fast is not None and fast.next is not None):
+        slow = slow.next
+        fast = fast.next.next
+        
+    return slow

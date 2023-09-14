@@ -44,6 +44,17 @@ Tags:
 from typing import List
 
 
+
 def two_sum(arr: List[int], target: int) -> List[int]:
-    # TODO: Implement the function
-    return [0]
+   # TODO: Implement the function
+   curr = 0
+   leng = len(arr)
+
+   for m in range(leng):
+      curr = target - arr[m]
+      for n in range(m+1, leng):
+         if arr[n] == curr:
+            return [m,n]
+
+
+   return [0]

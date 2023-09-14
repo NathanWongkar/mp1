@@ -47,5 +47,25 @@ Tags:
     - Data Structures
 """
 
+from collections import deque
 def validate_expression(s: str) -> bool:
-    return False
+   if s == "":
+        return True
+   
+   stack = deque([])
+   opening = ['(', '{', '[']
+   closing = [')', '}', ']']
+   bracket_match = {')': '(', '}': '{', ']': '['}
+
+   for c in s:
+      if c in opening:
+         stack.append(c)
+      elif c in closing:   
+         if not stack:
+            return False
+         if stack[-1] != bracket_match[c]:
+            return False
+         stack.pop()
+
+
+   return not stack
