@@ -42,33 +42,30 @@ Tags:
 
 from typing import List
 
+from typing import List
+
+from typing import List
+
 def count_continuous_subarrays(nums: List[int]) -> int:
-    # TODO: Implement the function
-    def longest_subarray(nums: List[int], limit: int) -> int:
-    max_deque, min_deque = deque(), deque()
-    left, res = 0, 0
+    n = len(nums)
+    left, right = 0, 0
+    total_subarrays = 0
+    current_max, current_min = float('-inf'), float('inf')
     
-    for right, num in enumerate(nums):
-        # Maintain the max deque
-        while max_deque and max_deque[-1] < num:
-            max_deque.pop()
-        max_deque.append(num)
-
-        # Maintain the min deque
-        while min_deque and min_deque[-1] > num:
-            min_deque.pop()
-        min_deque.append(num)
-
-        # If the current window is invalid, slide the window
-        while max_deque[0] - min_deque[0] > limit:
-            if nums[left] == min_deque[0]:
-                min_deque.popleft()
-            if nums[left] == max_deque[0]:
-                max_deque.popleft()
+    while right < n:
+        current_max = max(current_max, nums[right])
+        current_min = min(current_min, nums[right])
+        
+        # Check if the subarray [left, right] is continuous
+        while current_max - current_min > 2:
             left += 1
+            current_max = max(nums[left:right+1])
+            current_min = min(nums[left:right+1])
+        
+        # Add the number of continuous subarrays ending at position 'right'
+        total_subarrays += right - left + 1
+        right += 1
+        
+    return total_subarrays
 
-        # Update the result
-        res = max(res, right - left + 1)
 
-    return res
-    return 0
